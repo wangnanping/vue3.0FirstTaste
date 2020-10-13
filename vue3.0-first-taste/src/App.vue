@@ -10,7 +10,8 @@
     <button @click="color ='blue'">蓝色</button>
     <button @click="color='green'">绿色</button>
     <ProveideAndInjectTest />
-    <TemplateRefTest/>
+    <TemplateRefTest />
+    <NextTickTest />
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import ComputedTest from "./components/ComputedTest.vue";
 import WatchTest from "./components/WatchTest.vue";
 import ProveideAndInjectTest from "./components/Proveide&injectTest.vue";
 import TemplateRefTest from "./components/TemplateRefTest.vue";
+import NextTickTest from "./components/NextTickTest.vue";
 
 import { ref, provide } from "vue";
 
@@ -32,7 +34,8 @@ export default {
     ComputedTest,
     WatchTest,
     ProveideAndInjectTest,
-    TemplateRefTest
+    TemplateRefTest,
+    NextTickTest
   },
   setup: () => {
     const color = ref("yellow");

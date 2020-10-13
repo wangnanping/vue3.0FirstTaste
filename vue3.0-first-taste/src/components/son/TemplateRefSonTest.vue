@@ -7,7 +7,7 @@
 <script>
 import { ref } from "vue";
 export default {
-  name: "Proveide/inject",
+  name: "TemplateRefTest",
   setup() {
     const num = ref(0);
     const setNum = () => {
