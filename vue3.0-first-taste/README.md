@@ -54,8 +54,9 @@ context一个上下文对象，这个上下文对象中包含了一些有用的�
 ```
 ####  ref\reactive\toRefs
 ref 处理简单的响应式数据
+isRef 判断是否为ref创建 boolean
 reactive 监听所有的响应式数据
-toRefs 将reactive里面的数据state转换为ref形式的响应数据
+toRefs 函数可以将 reactive() 创建出来的响应式对象，转换为普通的对象，只不过，这个对象上的每个属性节点，都是 ref() 类型的响应式数据。
 ``` javascript
 import { ref, reactive, toRefs } from "vue";
 
@@ -72,7 +73,9 @@ export default {
     refNum.value++;
     // 再次打印 refNum 的值
     console.log(refNum.value); // 输出 1
-
+    
+    const refC1 = ref(0);
+    console.log(isRef(refC1)); // isRef判断是否为ref创建
 
     // 创建响应式数据对象，得到的 state 类似于 vue 2.x 中 data() 返回的响应式对象
     const state = reactive({

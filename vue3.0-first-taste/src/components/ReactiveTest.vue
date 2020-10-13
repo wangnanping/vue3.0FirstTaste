@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { ref, reactive, toRefs } from "vue";
+import { ref, reactive, toRefs, isRef } from "vue";
 
 export default {
   //   name: "ReactiveTest",
@@ -28,6 +28,7 @@ export default {
     // 再次打印 refNum 的值
     // console.log(refNum.value); // 输出 1
     const refC1 = ref(0);
+    console.log(isRef(refC1)); // isRef判断是否为ref创建
 
     // 创建响应式数据对象，得到的 state 类似于 vue 2.x 中 data() 返回的响应式对象
     const state = reactive({
