@@ -8,10 +8,11 @@ npm i -g @vue/cli
 ```
 vue create project-name
 ```
-基于 Composition API 即 Function-based API 进行改造，配合 Vue Cli，优先体验 Vue3 特性
+基于 Composition API 即 Function-based API 进行改造，配合 Vue Cli，优先体验 Vue3 特性 (直接使用vue也是可以的)
 ```
 npm install @vue/composition-api -S
 ```
+直接使用import { ref, provide } from 'vue'也是可以的
 ## start
 ```
 npm install

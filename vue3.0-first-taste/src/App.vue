@@ -5,6 +5,11 @@
     <ReactiveTest />
     <ComputedTest />
     <WatchTest />
+    <p>ProveideAndinject:----------------------------------------</p>
+    <button @click="color = 'yellow'">黄色</button>
+    <button @click="color ='blue'">蓝色</button>
+    <button @click="color='green'">绿色</button>
+    <ProveideAndInjectTest />
   </div>
 </template>
 
@@ -13,6 +18,9 @@ import SetupTest from "./components/SetupTest.vue";
 import ReactiveTest from "./components/ReactiveTest.vue";
 import ComputedTest from "./components/ComputedTest.vue";
 import WatchTest from "./components/WatchTest.vue";
+import ProveideAndInjectTest from "./components/Proveide&injectTest.vue";
+
+import { ref, provide } from "vue";
 
 export default {
   name: "App",
@@ -20,10 +28,15 @@ export default {
     SetupTest,
     ReactiveTest,
     ComputedTest,
-    WatchTest
+    WatchTest,
+    ProveideAndInjectTest
   },
-  methods: {
-    start: () => {}
+  setup: () => {
+    const color = ref("yellow");
+    provide("provideColor", color);
+    return {
+      color
+    };
   }
 };
 </script>
