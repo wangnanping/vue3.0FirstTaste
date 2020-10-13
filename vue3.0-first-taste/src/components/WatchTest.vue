@@ -1,30 +1,30 @@
 <template>
   <div class="hello">
     <p>watch:----------------------------------------</p>
-    <!-- <p>监视单个ref值{{refCount}}</p> -->
+    <p>监视单个ref值{{refCount}}</p>
     <!-- <p>监视多个ref值{{refCount1}}/{{refCount2}}</p> -->
     <!-- <p>监视 reactive 的数据源{{user.age}}</p> -->
-    <p>监听reactive多个数据源{{user.age}}{{getNum.number}}</p>
+    <!-- <p>监听reactive多个数据源{{user.age}}{{getNum.number}}</p>
     <p>
       <button @click="stopWatch">清除监听</button>
-    </p>
+    </p>-->
   </div>
 </template>
 
 <script>
-import { watch, reactive, toRefs } from "vue";
+// import { watch, ref } from "vue";
 
 export default {
   name: "watch",
   setup() {
     console.log("watch:-----------------------------------------");
     //watch() 函数用来监视某些数据项的变化，从而触发某些特定的操作
-    //watch 进来就会执行一次 (如果不想执行需要设置{ lazy: false })
+    //watch 进来就会执行一次 (如果不想执行需要设置{ lazy: true })
 
     // // 单个ref监视--------------------
     // const refCount = ref(0);
-    // //refCount发生变化就会触发watch 进来就会执行一次 (如果不想执行需要设置{ lazy: false })
-    // watch(() => console.log(refCount.value), { lazy: false });
+    // //refCount发生变化就会触发watch 进来就会执行一次 (如果不想执行需要设置{ lazy: true })
+    // watch(() => console.log(refCount.value), { lazy: true });
     // setInterval(() => {
     //   refCount.value += 1;
     // }, 5000);
@@ -72,38 +72,38 @@ export default {
     // }, 2000);
     // return state;
 
-    // // 多个reactive 监视-----------------------------
-    const state = reactive({
-      user: {
-        age: 0
-      },
-      getNum: {
-        number: 0
-      }
-    });
-    const stop = watch(
-      [() => state.user.age, () => state.getNum.number],
-      ([newVal, oldVal], [getNumNew, getNumOld]) => {
-        console.log(newVal);
-        console.log(oldVal);
-        console.log(getNumNew);
-        console.log(getNumOld);
-      },
-      { lazy: false }
-    );
-    setInterval(() => {
-      state.user.age += 1;
-      state.getNum.number += 1;
-    }, 2000);
+    // // 清除监视-----------------------------
+    // const state = reactive({
+    //   user: {
+    //     age: 0
+    //   },
+    //   getNum: {
+    //     number: 0
+    //   }
+    // });
+    // const stop = watch(
+    //   [() => state.user.age, () => state.getNum.number],
+    //   ([newVal, oldVal], [getNumNew, getNumOld]) => {
+    //     console.log(newVal);
+    //     console.log(oldVal);
+    //     console.log(getNumNew);
+    //     console.log(getNumOld);
+    //   },
+    //   { lazy: false }
+    // );
+    // // setInterval(() => {
+    // //   state.user.age += 1;
+    // //   state.getNum.number += 1;
+    // // }, 2000);
 
-    const stopWatch = () => {
-      console.log("停止监听");
-      stop();
-    };
-    return {
-      stopWatch,
-      ...toRefs(state)
-    };
+    // const stopWatch = () => {
+    //   console.log("停止监听");
+    //   stop();
+    // };
+    // return {
+    //   stopWatch,
+    //   ...toRefs(state)
+    // };
   }
 };
 </script>

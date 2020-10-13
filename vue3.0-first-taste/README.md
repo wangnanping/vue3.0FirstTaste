@@ -142,6 +142,8 @@ export default {
 ```
 ####  watch 监视
 ```javascript
+ import { watch, reactive, toRefs, ref } from "vue";
+
  setup() {
     //watch() 函数用来监视某些数据项的变化，从而触发某些特定的操作
     //watch 进来就会执行一次 (如果不想执行需要设置{ lazy: false })
@@ -251,8 +253,8 @@ import { watch, reactive, toRefs } from "vue";
       { lazy: false }
     );
     setInterval(() => {
-      state.user.age += 1;
-      state.getNum.number += 1;
+      state.user.age =state.user.age+ 1;
+      state.getNum.number =state.getNum.number+ 1;
     }, 2000);
 
     const stopWatch = () => {
@@ -264,4 +266,41 @@ import { watch, reactive, toRefs } from "vue";
       ...toRefs(state)
     };
   }
+```
+在watch中清除无效的异步任务
+``` javascript
+ import { watch, ref, reactive } from "@vue/composition-api";
+
+export default {
+  setup() {
+    // 定义响应式数据 keywords
+    const keywords = ref("");
+
+    // 异步任务：打印用户输入的关键词
+    const asyncPrint = val => {
+      // 延时 1 秒后打印
+      return setTimeout(() => {
+        console.log(val);
+      }, 1000);
+    };
+
+    // 定义 watch 监听
+    watch(
+      keywords,
+      (keywords, prevKeywords, onCleanup) => {
+        // 执行异步任务，并得到关闭异步任务的 timerId
+        const timerId = asyncPrint(keywords);
+        // 如果 watch 监听被重复执行了，则会先清除上次未完成的异步任务
+        onCleanup(() => clearTimeout(timerId));
+      },
+      // watch 刚被创建的时候不执行
+      { lazy: true }
+    );
+
+    // 把 template 中需要的数据 return 出去
+    return {
+      keywords
+    };
+  }
+};
 ```
