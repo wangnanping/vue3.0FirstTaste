@@ -322,3 +322,56 @@ export default {
     color;
   }
 ```
+#### Template  ref
+
+```javascript
+ <span ref="spanDom">被获取的dom</span>
+
+ setup() {
+    // 创建一个 DOM 引用
+    const spanDom = ref(null);
+
+    // 在 DOM 首次加载完毕之后，才能获取到元素的引用
+    onMounted(() => {
+      // 为 dom 元素设置字体颜色
+      // spanDom.value 是原生DOM对象
+      spanDom.value.style.color = "red";
+    });
+
+    // 把创建的引用 return 出去
+    return {
+      spanDom
+    };
+  }
+```
+获取子组件的方法和属性
+```javascript
+  // 子
+     setup() {
+    const num = ref(0);
+    const setNum = () => {
+      num.value = 3;
+    };
+    return {
+      setNum,
+      num
+    };
+  }
+  // 父
+    <son ref="sonDom"></son>
+
+    import { ref, onMounted } from "vue";
+    setup() {
+       // 获取子组件
+      const sonDom = ref(null);
+       // 在 DOM 首次加载完毕之后，才能获取到元素的引用
+      onMounted(() => {
+        console.log(sonDom.value.num); // 0
+        sonDom.value.setNum(); // 执行子组件的方法
+        console.log(sonDom.value.num); // 3
+      });
+      return {
+        sonDom
+      }
+    }
+```
