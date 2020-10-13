@@ -57,6 +57,7 @@ export default {
     // setup 函数中将响应式数据对象 return 出去，供 template 使用
     return {
       refNum,
+      ...state, // 非响应式数据
       ...toRefs(state)
     };
   }

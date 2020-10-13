@@ -1,20 +1,22 @@
 <template>
   <div>
     <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld name="王先生" msg="Welcome to Your Vue.js App" />
-    <ReactiveTest></ReactiveTest>
+    <SetupTest name="王先生" msg="Welcome to Your Vue.js App" />
+    <ReactiveTest />
+    <ComputedTest />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import SetupTest from "./components/SetupTest.vue";
 import ReactiveTest from "./components/ReactiveTest.vue";
-
+import ComputedTest from "./components/ComputedTest.vue";
 export default {
   name: "App",
   components: {
-    HelloWorld,
-    ReactiveTest
+    SetupTest,
+    ReactiveTest,
+    ComputedTest
   },
   methods: {
     start: () => {}

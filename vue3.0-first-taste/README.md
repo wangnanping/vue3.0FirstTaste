@@ -105,9 +105,38 @@ export default {
     // 这样对象的写法就需要toRefs来转换state
     return {
       refNum,
-      ...toRefs(state)
+      ...state, // 非响应式数据
+      ...toRefs(state) // 响应式数据
     };
   }
 };
 ```
+####  computed 计算属性
+``` javascript
+ setup() {
+    // 只读计算属性
+    const refNum = ref(0);
+    let conputedCount = computed(() => refNum.value + 1);
+    return {
+      refNum,
+      conputedCount
+    };
 
+    // 可读可写
+    const refNum = ref(0);
+    let conputedCount = computed({
+      // 取值函数
+      get: () => refNum.value + 1,
+      // 赋值函数
+      set: () => {
+        refNum.value = refNum.value + 1;
+      }
+    });
+    // 为计算属性赋值
+    conputedCount.value = 0;
+    return {
+      refNum,
+      conputedCount
+    };
+  }
+```
