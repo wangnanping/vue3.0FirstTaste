@@ -4,6 +4,7 @@
     <SetupTest name="王先生" msg="Welcome to Your Vue.js App" />
     <ReactiveTest />
     <ComputedTest />
+    <WatchTest />
   </div>
 </template>
 
@@ -11,12 +12,15 @@
 import SetupTest from "./components/SetupTest.vue";
 import ReactiveTest from "./components/ReactiveTest.vue";
 import ComputedTest from "./components/ComputedTest.vue";
+import WatchTest from "./components/WatchTest.vue";
+
 export default {
   name: "App",
   components: {
     SetupTest,
     ReactiveTest,
-    ComputedTest
+    ComputedTest,
+    WatchTest
   },
   methods: {
     start: () => {}
