@@ -5,11 +5,14 @@
     <!-- <p>监视多个ref值{{refCount1}}/{{refCount2}}</p> -->
     <!-- <p>监视 reactive 的数据源{{user.age}}</p> -->
     <p>监听reactive多个数据源{{user.age}}{{getNum.number}}</p>
+    <p>
+      <button @click="stopWatch">清除监听</button>
+    </p>
   </div>
 </template>
 
 <script>
-import { watch, reactive } from "vue";
+import { watch, reactive, toRefs } from "vue";
 
 export default {
   name: "watch",
@@ -78,7 +81,7 @@ export default {
         number: 0
       }
     });
-    watch(
+    const stop = watch(
       [() => state.user.age, () => state.getNum.number],
       ([newVal, oldVal], [getNumNew, getNumOld]) => {
         console.log(newVal);
@@ -86,13 +89,21 @@ export default {
         console.log(getNumNew);
         console.log(getNumOld);
       },
-      { lazy: true }
+      { lazy: false }
     );
     setInterval(() => {
       state.user.age += 1;
       state.getNum.number += 1;
     }, 2000);
-    return state;
+
+    const stopWatch = () => {
+      console.log("停止监听");
+      stop();
+    };
+    return {
+      stopWatch,
+      ...toRefs(state)
+    };
   }
 };
 </script>

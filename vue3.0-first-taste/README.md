@@ -142,8 +142,8 @@ export default {
 ```
 ####  watch 监视
 ```javascript
-setup() {
-//watch() 函数用来监视某些数据项的变化，从而触发某些特定的操作
+ setup() {
+    //watch() 函数用来监视某些数据项的变化，从而触发某些特定的操作
     //watch 进来就会执行一次 (如果不想执行需要设置{ lazy: false })
 
     // // 单个ref监视--------------------
@@ -221,5 +221,47 @@ setup() {
       state.getNum.number += 1;
     }, 2000);
     return state;
+  }
+```
+清除监视
+``` javascript
+
+<button @click="stopWatch">清除监听</button>
+
+import { watch, reactive, toRefs } from "vue";
+//在 setup() 函数内创建的 watch 监视，会在当前组件被销毁的时候自动停止。如果想要明确地停止某个监视，可以调用 watch() 函数的返回值即可
+  setup() {
+ // 多个reactive 监视-----------------------------
+    const state = reactive({
+      user: {
+        age: 0
+      },
+      getNum: {
+        number: 0
+      }
+    });
+    const stop = watch(
+      [() => state.user.age, () => state.getNum.number],
+      ([newVal, oldVal], [getNumNew, getNumOld]) => {
+        console.log(newVal);
+        console.log(oldVal);
+        console.log(getNumNew);
+        console.log(getNumOld);
+      },
+      { lazy: false }
+    );
+    setInterval(() => {
+      state.user.age += 1;
+      state.getNum.number += 1;
+    }, 2000);
+
+    const stopWatch = () => {
+      console.log("停止监听");
+      stop();
+    };
+    return {
+      stopWatch,
+      ...toRefs(state)
+    };
   }
 ```
