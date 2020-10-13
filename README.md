@@ -8,11 +8,10 @@ npm i -g @vue/cli
 ```
 vue create project-name
 ```
-基于 Composition API 即 Function-based API 进行改造，配合 Vue Cli，优先体验 Vue3 特性 (直接使用vue也是可以的)
+基于 Composition API 即 Function-based API 进行改造，配合 Vue Cli，优先体验 Vue3 特性
 ```
 npm install @vue/composition-api -S
 ```
-直接使用import { ref, provide } from 'vue'也是可以的
 ## start
 ```
 npm install
@@ -143,8 +142,6 @@ export default {
 ```
 ####  watch 监视
 ```javascript
- import { watch, reactive, toRefs, ref } from "vue";
-
  setup() {
     //watch() 函数用来监视某些数据项的变化，从而触发某些特定的操作
     //watch 进来就会执行一次 (如果不想执行需要设置{ lazy: false })
@@ -254,8 +251,8 @@ import { watch, reactive, toRefs } from "vue";
       { lazy: false }
     );
     setInterval(() => {
-      state.user.age =state.user.age+ 1;
-      state.getNum.number =state.getNum.number+ 1;
+      state.user.age += 1;
+      state.getNum.number += 1;
     }, 2000);
 
     const stopWatch = () => {
@@ -266,59 +263,5 @@ import { watch, reactive, toRefs } from "vue";
       stopWatch,
       ...toRefs(state)
     };
-  }
-```
-在watch中清除无效的异步任务
-``` javascript
- import { watch, ref, reactive } from "@vue/composition-api";
-
-export default {
-  setup() {
-    // 定义响应式数据 keywords
-    const keywords = ref("");
-
-    // 异步任务：打印用户输入的关键词
-    const asyncPrint = val => {
-      // 延时 1 秒后打印
-      return setTimeout(() => {
-        console.log(val);
-      }, 1000);
-    };
-
-    // 定义 watch 监听
-    watch(
-      keywords,
-      (keywords, prevKeywords, onCleanup) => {
-        // 执行异步任务，并得到关闭异步任务的 timerId
-        const timerId = asyncPrint(keywords);
-        // 如果 watch 监听被重复执行了，则会先清除上次未完成的异步任务
-        onCleanup(() => clearTimeout(timerId));
-      },
-      // watch 刚被创建的时候不执行
-      { lazy: true }
-    );
-
-    // 把 template 中需要的数据 return 出去
-    return {
-      keywords
-    };
-  }
-};
-```
-####  proide / inject
-``` javascript
-// 父
-   <button @click="color=red">红色</button>
-  //响应数据流 （向下传递）
-  const color = ref("yellow")
-  proide("proideColor",color)
-  return {
-    color
-  }
-// 子
-  //获取 (获取上级定义的数据)
-  const color = inject("proideColoe");
-  return {
-    color;
   }
 ```
